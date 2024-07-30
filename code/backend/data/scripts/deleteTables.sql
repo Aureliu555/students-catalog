@@ -1,0 +1,1 @@
+drop table if exists users, students, subjects, users_students, students_subjects cascade;

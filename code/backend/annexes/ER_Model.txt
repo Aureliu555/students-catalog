@@ -1,0 +1,36 @@
+Users (Professors) -> ( id, email, name, birthDate, hashedPassword )
+	PK: id
+	
+Subjects -> ( code, name )
+	PK: code
+	
+Students -> ( id, name )
+	PK: id
+	
+Users_Subjects -> ( user_id, subject_code )
+	PK: user_id, subject_code
+	FK: user_id from Users.id, subject_code from Subjects.code
+	
+Subjects_Students -> ( subject_code, students_id, grade)
+	PK: subject_code, students_id
+	FK: subject_code from Subjects.code, students_id from Students.id
+
+-----------------------------------------------------------------------------
+
+Users (Professors) -> ( id, email, name, birthDate, hashedPassword )
+	PK: id
+	
+Students -> ( id, name )
+	PK: id
+	
+Subjects -> ( code, name )
+	PK: code
+	
+Users_Students -> ( user_id, student_id )
+	PK: user_id, subject_code
+	FK: user_id from Users.id, student_id from Students.id
+	
+Students_Subjects -> ( student_id, subject_code, grade)
+	PK: subject_code, students_id
+	FK: student_id from Students.id, subject_code from Subjects.code
+
