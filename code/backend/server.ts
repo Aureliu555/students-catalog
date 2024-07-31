@@ -3,13 +3,15 @@ import dotenv from "dotenv"
 import AuthApi from "./api/auth"
 import { AuthServices } from "./services/auth"
 import  getPool from "./data/connection"
+import UserData from "./data/users"
 dotenv.config()
 
 const app = express()
 const serverPort = process.env.PORT || 5555
 
 // Auth
-const authServices = new AuthServices()
+const userData = new UserData()
+const authServices = new AuthServices(userData)
 const authApi = new AuthApi(authServices)
 
 const pool = getPool()
