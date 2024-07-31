@@ -7,7 +7,7 @@ begin transaction;
 create table users(
     email character varying check (email like '%@%.%') primary key,
     name character varying not null,
-    birth_date timestamp not null,
+    birth_date bigint not null,
     password character varying not null
 );
 
