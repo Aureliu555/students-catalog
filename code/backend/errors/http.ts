@@ -14,8 +14,6 @@ const errorsMap: Record<string, HttpError> = {
   'InvalidParamsError': { code: 400, status: 'BAD_REQUEST', message: 'Missing or invalid parameters' },
   'InvalidCredentialsError': { code: 400, status: 'BAD_REQUEST', message: 'Invalid Credentials' },
   'ExistentEmailError': { code: 409, status: 'CONFLICT', message: 'There is already an account with the inserted email' },
-  'InvalidAuthorizationTokenError': { code: 400, status: 'BAD_REQUEST', message: 'Authorization token needs to be bearer' },
-  'NonExistentAuthorizationTokenError': { code: 400, status: 'BAD_REQUEST', message: 'No authorization token provided' },
   'UnauthorizedError': { code: 401, status: 'UNAUTHORIZED', message: 'Access denied' },
   'InvalidDateError': { code: 400, status: 'BAD_REQUEST', message: 'Provided date is invalid' }
 }
