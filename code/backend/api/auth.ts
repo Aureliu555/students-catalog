@@ -12,7 +12,9 @@ export default class AuthApi implements IAuthApi {
 
     login = async (req: Request, res: Response) => {
         await apiHandler(res, async () => {
-            
+            const body = req.body
+            const user = await this.authService.login(body.email, body.password)
+            res.status(200).send(user)
         })
     }
 

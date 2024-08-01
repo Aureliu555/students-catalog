@@ -1,6 +1,6 @@
-import { SimpleUser, User } from "../types"
+import { NewUser, SimpleUser, User } from "../types"
 
 export interface IAuthServices {
-    register(name: string, password: string, email: string, birth_date: bigint): Promise<SimpleUser>
-    login(email: string, password: string): Promise<SimpleUser>
+    register(name: string, password: string, email: string, birth_date: bigint): Promise<NewUser>
+    login(email: string, password: string): Promise<NewUser>
 }

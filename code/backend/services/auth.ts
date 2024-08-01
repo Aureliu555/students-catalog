@@ -1,8 +1,12 @@
+import dotenv from "dotenv"
 import { sqlTransactionHandler } from "../data/handlers"
 import UserData from "../data/users"
 import { IAuthServices } from "../domain/interfaces/services"
 import bcrypt from 'bcrypt'
-import { ExistentEmailError } from "../errors/app"
+import { ExistentEmailError, InvalidCredentialsError, InvalidParamsError } from "../errors/app"
+import { NewUser, SimpleUser } from "../domain/types"
+import jwt from 'jsonwebtoken'
+dotenv.config()
   
   export class AuthServices implements IAuthServices {
     userData: UserData
@@ -12,29 +16,40 @@ import { ExistentEmailError } from "../errors/app"
     }
 
     login = async (email: string, password: string) => {
-      return {
-        name: 'Aureliu',
-        email: email
-      }
+      return sqlTransactionHandler(async (client) => {
+        if (!email || !password) throw InvalidParamsError
+
+        const user = await this.userData.getUserByEmail(client, email)
+        if (!user) throw InvalidCredentialsError
+
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) throw InvalidCredentialsError
+        
+        return this.newUser({ name: user.name, email })
+      })
     }
   
     register = (name: string, password: string, email: string, birth_date: bigint) => {
       return sqlTransactionHandler(async (client) => {
-        const user = await this.userData.getUserByEmail(client, email)
-        if (user) throw ExistentEmailError
+        if (!name || !password || !email || !birth_date) throw InvalidParamsError
+
+        const existentUser = await this.userData.getUserByEmail(client, email)
+        if (existentUser) throw ExistentEmailError
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        await this.userData.createUser(client,{
-          name: name,
-          email: email,
-          password: hashedPassword,
-          birth_date: birth_date
-        })
-        
-        return {
-          name: name,
-          email: email
-        }
+        const user = { name, email, password: hashedPassword, birth_date }
+        await this.userData.createUser(client, user)
+
+        return this.newUser({ name, email })
       })
+    }
+
+    newUser(simpleUser: SimpleUser): NewUser {
+        const access_token = this.generateAccessToken(simpleUser)
+        return { name: simpleUser.name, email: simpleUser.email, access_token }
+    }
+
+    generateAccessToken = (user: SimpleUser) => {
+      return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string)
     }
   }
