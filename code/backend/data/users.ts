@@ -1,30 +1,17 @@
-import { Pool } from "pg"
+import { PoolClient } from "pg"
 import { IUserData } from "../domain/interfaces/data"
 import { User } from "../domain/types"
-import getPool from "./connection"
 
 export default class UserData implements IUserData {
-    pool: Pool
-
-    constructor() {
-        this.pool = getPool()
+    createUser = async (client: PoolClient, user: User) => {
+        const insert_query = `INSERT INTO users (name, email, password, birth_date) VALUES ($1, $2, $3, $4)`
+        await client.query(insert_query, [user.name, user.email, user.password, user.birth_date])
     }
 
-    createUser = async (user: User) => {
-        console.log("Inside createUser with pool -> ", this.pool)
-        const client = await this.pool.connect()
-        console.log("client -> ", client)
-        try {
-            await client.query('BEGIN')
-            const insert_query = `INSERT INTO users (name, email, password, birth_date) VALUES ($1, $2, $3, $4)`
-            const result = await this.pool.query(insert_query, [user.name, user.email, user.password, user.birth_date])
-            await client.query('COMMIT')
-            console.log("commit with result -> ", result.rows[0])
-        } catch (error) {
-            await client.query('ROLLBACK')
-            console.error('Transaction error', error)
-        } finally {
-            client.release()
-        }
+    getUserByEmail = async (client: PoolClient, email: string) => {
+        const select_query = `SELECT * FROM users WHERE email = $1`
+        const result = await client.query(select_query, [email])
+        console.log("Rows ->", result.rows[0])
+        return result.rows[0]
     }
 }

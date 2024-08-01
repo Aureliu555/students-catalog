@@ -2,7 +2,6 @@ import express from "express"
 import dotenv from "dotenv"
 import AuthApi from "./api/auth"
 import { AuthServices } from "./services/auth"
-import  getPool from "./data/connection"
 import UserData from "./data/users"
 dotenv.config()
 
@@ -14,13 +13,11 @@ const userData = new UserData()
 const authServices = new AuthServices(userData)
 const authApi = new AuthApi(authServices)
 
-const pool = getPool()
-
 app.use(express.json())
 
 // Auth Endpoints
-app.get("/api/login", authApi.login)
-app.get("/api/register", authApi.register)
+app.post("/api/login", authApi.login)
+app.post("/api/register", authApi.register)
 
 app.listen(serverPort, () => {
     console.log(`Server is running on port ${serverPort}`)
