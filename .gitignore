@@ -131,3 +131,6 @@ dist
 
 # nodemond configuration
 .nodemon.json
+
+# vscode configuration
+.vscode
