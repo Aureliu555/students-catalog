@@ -1,0 +1,29 @@
+.input_container {
+    margin-bottom: 20px;
+    padding: 10px 25px;
+    width: 65%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    height: 30px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+}
+
+.icon_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;    
+}
+
+.icon {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}

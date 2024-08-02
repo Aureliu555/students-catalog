@@ -4,6 +4,7 @@ import AuthApi from "./api/auth"
 import { AuthServices } from "./services/auth"
 import UserData from "./data/users"
 import { authorization } from "./api/middlewares"
+import cors from "cors"
 dotenv.config()
 
 const app = express()
@@ -14,6 +15,7 @@ const userData = new UserData()
 const authServices = new AuthServices(userData)
 const authApi = new AuthApi(authServices)
 
+app.use(cors())
 app.use(express.json())
 
 // Auth Endpoints
