@@ -17,8 +17,11 @@ create table students(
 );
 
 create table subjects(
-    code integer primary key,
-    name character varying not null
+    id UUID primary key,
+    name character varying,
+    student_id UUID,
+    grade integer,
+    foreign key (student_id) references students(id) on delete cascade
 );
 
 create table users_students(
@@ -29,13 +32,5 @@ create table users_students(
     foreign key (student_id) references students(id) on delete cascade
 );
 
-create table students_subjects(
-    student_id UUID,
-    subject_code integer,
-    grade integer,
-    primary key (student_id, subject_code),
-    foreign key (student_id) references students(id) on delete cascade,
-    foreign key (subject_code) references subjects(code) on delete cascade
-);
 
 commit;

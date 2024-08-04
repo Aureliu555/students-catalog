@@ -1,6 +1,6 @@
 import { PoolClient } from "pg"
 import { IStudentsData } from "../domain/interfaces/data"
-import { SimpleStudent } from "../domain/types"
+import { SimpleStudent, Student } from "../domain/types"
 
 export default class StudentsData implements IStudentsData {
     getStudents = async (client: PoolClient, profId: string): Promise<SimpleStudent[]> => {
@@ -15,8 +15,15 @@ export default class StudentsData implements IStudentsData {
     }
 
     getStudent = async (client: PoolClient, id: string) => {
-        // TODO: get student
-        return undefined
+        const get_student_query = `SELECT * FROM students WHERE id = $1`
+        const get_students_subjects_query = `SELECT id, name, grade FROM subjects WHERE student_id = $1`
+
+        const studentRes = await client.query(get_student_query, [id])
+        if (studentRes.rows.length === 0) return undefined
+        
+        const subjectsRes = await client.query(get_students_subjects_query, [id])
+        const student = studentRes.rows[0]
+        return { id: student.id, name: student.name, subjects: subjectsRes.rows }
     }
 
     addStudent = async (client: PoolClient, profId: string, id: string, name: string): Promise<void> => {
@@ -29,5 +36,16 @@ export default class StudentsData implements IStudentsData {
     deleteStudent = async (client: PoolClient, id: string): Promise<void> => { 
         const delete_query = `DELETE FROM students WHERE id = $1`
         await client.query(delete_query, [id])
+    }
+
+    resToStudent(rows: any[]): Student {
+        if (rows.length === 0) return { id: "a", name: "b", subjects: [] }
+        const { student_id, student_name } = rows[0]
+        const subjects = rows.map((r) => { 
+            const { subject_id, subject_name, grade } = r
+            return { name: subject_name, id: subject_id, grade }
+        })
+
+        return { id: student_id, name: student_name, subjects }
     }
 }

@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 import { sqlTransactionHandler } from "../data/handlers"
 import { IStudentsServices } from "../domain/interfaces/services"
-import { SimpleStudent } from "../domain/types"
+import { SimpleStudent, Student } from "../domain/types"
 import { validate, v4 as uuidv4 } from 'uuid'
 import StudentsData from "../data/students"
 import { InvalidIdError } from "../errors/app"
@@ -14,29 +14,33 @@ export class StudentsServices implements IStudentsServices {
         this.studentsData = studentsData
     }
 
-    getStudents(profId: string): Promise<SimpleStudent[]> {
-        return sqlTransactionHandler(async (client) => {
+    getStudents = async (profId: string): Promise<SimpleStudent[]> => {
+        return await sqlTransactionHandler(async (client) => {
             const students = await this.studentsData.getStudents(client, profId)
             return students
         })
     }
 
-    getStudent(id: string) { // return type missing
-        return sqlTransactionHandler(async (client) => {
+    getStudent = async (id: string): Promise<Student> => {
+        return await sqlTransactionHandler(async (client) => {
+            if (!validate(id)) throw InvalidIdError
             
+            const student = await this.studentsData.getStudent(client, id)
+            if (!student) throw InvalidIdError
+            return student
         })
     }
 
-    addStudent(profId: string, name: string): Promise<SimpleStudent> {
-        return sqlTransactionHandler(async (client) => {
+    addStudent = async (profId: string, name: string): Promise<SimpleStudent> => {
+        return await sqlTransactionHandler(async (client) => {
             const newUUID = uuidv4()
             await this.studentsData.addStudent(client, profId, newUUID, name)
             return { id: newUUID, name }
         })
     }
 
-    deleteStudent(id: string): Promise<void> {
-        return sqlTransactionHandler(async (client) => {
+    deleteStudent = async (id: string): Promise<void> => {
+        return await sqlTransactionHandler(async (client) => {
             if (!validate(id)) throw InvalidIdError
             await this.studentsData.deleteStudent(client, id)
         })

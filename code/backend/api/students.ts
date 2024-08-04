@@ -17,24 +17,23 @@ export default class StudentsApi implements IStudentsApi {
         })
     }
 
-    getStudent(req: Request, res: Response) {
-        apiHandler(res, async () => {
-            // TODO: get student
+    getStudent = async (req: Request, res: Response) => {
+        await apiHandler(res, async () => {
+            const student = await this.studentsServices.getStudent(req.params.id)
+            res.status(200).json(student)
         })
     }
 
     addStudent = async (req: Request | any, res: Response) => {
         await apiHandler(res, async () => {
-            const body = req.body
-            const newStudent = await this.studentsServices.addStudent(req.user.email, body.name)
+            const newStudent = await this.studentsServices.addStudent(req.user.email, req.body.name)
             res.status(201).json(newStudent)
         })
     }
 
     deleteStudent = async (req: Request, res: Response) => {
         await apiHandler(res, async () => {
-            const params = req.params
-            await this.studentsServices.deleteStudent(params.id)
+            await this.studentsServices.deleteStudent(req.params.id)
             res.status(204).json()
         })
     }

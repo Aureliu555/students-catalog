@@ -30,7 +30,7 @@ export type SimpleStudent = {
 }
 
 export type Subject = {
-    code: number,
+    id: string,
     name: string,
-    grade: number | null,
+    grade?: number | null,
 }

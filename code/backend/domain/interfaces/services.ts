@@ -1,4 +1,4 @@
-import { NewUser, SimpleStudent, Student } from "../types"
+import { NewUser, SimpleStudent, Student, Subject } from "../types"
 
 export interface IAuthServices {
     register(name: string, password: string, email: string, birth_date: bigint): Promise<NewUser>
@@ -10,4 +10,11 @@ export interface IStudentsServices {
     getStudent(id: string): Promise<Student>
     addStudent(profId: string, name: string): Promise<SimpleStudent>
     deleteStudent(id: string): Promise<void>
+}
+
+export interface ISubjectsServices {
+    addSubject(studentId: string, subName: string): Promise<Subject>
+    deleteSubject(subId: string): Promise<void>
+    addGrade(subId: string, grade: number): Promise<void>
+    deleteGrade(subId: string): Promise<void>
 }
