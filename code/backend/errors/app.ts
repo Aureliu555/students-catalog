@@ -8,3 +8,4 @@ export class ExistentEmailError extends AppError {}
 export class UnauthorizedError extends AppError {}
 export class NoItemToDeleteError extends AppError {}
 export class InvalidDateError extends AppError {}
+export class InvalidIdError extends AppError {}

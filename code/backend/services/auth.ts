@@ -25,7 +25,7 @@ dotenv.config()
         const match = await bcrypt.compare(password, user.password)
         if (!match) throw InvalidCredentialsError
         
-        return this.newUser({ name: user.name, email })
+        return this.newUser({ name: user.name, email, birth_date: user.birth_date })
       })
     }
   
@@ -40,13 +40,13 @@ dotenv.config()
         const user = { name, email, password: hashedPassword, birth_date }
         await this.userData.createUser(client, user)
 
-        return this.newUser({ name, email })
+        return this.newUser({ name, email, birth_date })
       })
     }
 
-    newUser(simpleUser: SimpleUser): NewUser {
-        const access_token = this.generateAccessToken(simpleUser)
-        return { name: simpleUser.name, email: simpleUser.email, access_token }
+    newUser(u: SimpleUser): NewUser {
+        const access_token = this.generateAccessToken(u)
+        return { name: u.name, email: u.email, birth_date: u.birth_date, access_token }
     }
 
     generateAccessToken = (user: SimpleUser) => {

@@ -15,7 +15,8 @@ const errorsMap: Record<string, HttpError> = {
   'InvalidCredentialsError': { code: 400, status: 'BAD_REQUEST', message: 'Invalid Credentials' },
   'ExistentEmailError': { code: 409, status: 'CONFLICT', message: 'There is already an account with the inserted email' },
   'UnauthorizedError': { code: 401, status: 'UNAUTHORIZED', message: 'Access denied' },
-  'InvalidDateError': { code: 400, status: 'BAD_REQUEST', message: 'Provided date is invalid' }
+  'InvalidDateError': { code: 400, status: 'BAD_REQUEST', message: 'Provided date is invalid' },
+  'InvalidIdError': { code: 400, status: 'BAD_REQUEST', message: 'Provided id is invalid' }
 }
 
 export function mapAppErrorToHttpError(error: Error): HttpError {
