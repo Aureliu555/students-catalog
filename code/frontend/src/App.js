@@ -4,22 +4,24 @@ import Home from './pages/Home'
 import Student from './pages/Student'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Students from './pages/Students'
+import '../src/styles/App.css'
 
 function App() {
-  console.log('App')
-
   return (
-    <>
-      <Navbar></Navbar>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={ <Home /> }></Route>
-          <Route path="/login" element={ <Login /> }></Route>
-          <Route path="/register" element={ <Register /> }></Route>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={ <Home /> }></Route>
+        
+        <Route element={ <Navbar /> }>
+          <Route path="/students" element={ <Students /> }></Route>
           <Route path="/student/:id" element={ <Student /> }></Route>
-        </Routes>
-      </div>
-    </>
+        </Route>
+        
+        <Route path="/login" element={ <Login /> }></Route>
+        <Route path="/register" element={ <Register /> }></Route>
+      </Routes>
+    </div>
   )
 }
 

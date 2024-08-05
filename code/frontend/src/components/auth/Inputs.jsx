@@ -15,7 +15,7 @@ export function Input({ placeholder, value, setValue }) {
                 type='text'
                 placeholder={placeholder}
                 value={value}
-                onChange={(v) => setValue(v.target.value)}
+                onChange={(e) => setValue(e.target.value)}
             />
         </div>
     )
@@ -34,7 +34,7 @@ export function PasswordInput({ placeholder, value, setValue }) {
                 type={visible ? 'text' : 'password'}
                 placeholder={placeholder}
                 value={value}
-                onChange={(v) => setValue(v.target.value)}
+                onChange={(e) => setValue(e.target.value)}
             />
             <div className='icon_container'>
                 <img className='icon' onClick={onClick} src={visible ? visible_icon : non_visible_icon}/>
@@ -79,37 +79,4 @@ export function DateInput({ placeholder, selectedDate, setSelectedDate }) {
             )}
         </div>
     )
-}
-
-
-export function DateInput2() {
-    const [selectedDate, setSelectedDate] = useState(null);
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date)
-    setIsOpen(false)
-  }
-
-  return (
-    <div>
-      <img className='icon' onClick={() => {setIsOpen((prev) => !prev)}} src={calendar_icon}/>
-      {isOpen && (
-        <div className='date_container'>
-            <DatePicker
-                selected={selectedDate}
-                onChange={handleDateChange}
-                onClickOutside={() => setIsOpen(false)}
-                inline
-            />
-        </div>
-        
-      )}
-      {selectedDate && (
-        <div>
-          <p>Selected Date: {selectedDate.toDateString()}</p>
-        </div>
-      )}
-    </div>
-  );
 }

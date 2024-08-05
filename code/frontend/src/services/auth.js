@@ -1,5 +1,5 @@
 import { API_URL } from "../utils/constants"
-import { setToken, setUser } from "./storage"
+import { setToken, setUser, getToken, getUser, removeToken, removeUser } from "./storage"
 
 export async function login(email, password) {
     let loginStatus = checkLogin(email, password)
@@ -15,7 +15,7 @@ export async function login(email, password) {
         setToken(data.access_token)
         const user = { name: data.name, email: data.email, birth_date: data.birth_date }
         setUser(user)
-        window.location.href = '/'
+        window.location.href = '/students'
         return { status: 'success' }
     } else {
         return { status: 'error', message: data.error_message }
@@ -30,19 +30,29 @@ export async function register(name, email, birth_date, password) {
     }
     
     const response = await registerRequest(name, email, birth_date.getTime(), password)
-    console.log("Response ->", response)
     const data = await response.json()
-    console.log("Data ->", data)
 
     if (response.ok) {
         setToken(data.access_token)
         const user = { name: data.name, email: data.email, birth_date: data.birth_date }
         setUser(user)
-        window.location.href = '/'
+        window.location.href = '/students'
         return { status: 'success' }
     } else {
         return { status: 'error', message: data.error_message }
     }
+}
+
+export function logout() {
+    removeToken()
+    removeUser()
+}
+
+export function getFullUser() {
+    const token = getToken()
+    const user = getUser()
+    if (!token || !user) return { error: 'No user logged in' }
+    else return { user: user, token: token }
 }
 
 async function loginRequest(email, password) {
