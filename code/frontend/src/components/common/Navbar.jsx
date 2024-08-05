@@ -18,18 +18,25 @@ export default function Navbar() {
 
     return (
         <>
-        { !fullUser ? <Loading /> :
-            <>
-                <div className="navbar_container">
-                    <div className="navbar_name_container"> <Link className="navbar_name" to='/students'>Students Catalog</Link> </div>
-                    <div className="navbar_links_container">
-                        <AccountInfo userName={fullUser.user.name} />
-                        <LogoutLink />
-                    </div>
+            { !fullUser 
+                ? <Loading /> 
+                : <NavbarComp user={fullUser.user} /> 
+            }
+        </>
+    )
+}
+
+function NavbarComp(props) {
+    return (
+        <>
+            <div className="navbar_container">
+                <div className="navbar_name_container"> <Link className="navbar_name" to='/students'>Students Catalog</Link> </div>
+                <div className="navbar_links_container">
+                    <AccountInfo userName={props.user.name} />
+                    <LogoutLink />
                 </div>
-                <main> <Outlet /> </main>
-            </>
-        }
+            </div>
+            <main> <Outlet /> </main>
         </>
     )
 }
