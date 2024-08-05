@@ -11,7 +11,7 @@ export async function sqlTransactionHandler(action: (client: PoolClient) => Prom
         await client.query('COMMIT')
         return res
     } catch (error: any) {
-        console.log("Transaction error ->", error.name)
+        console.error("Transaction error ->", error.name)
         await client.query('ROLLBACK')
         throw error
     } finally {

@@ -14,12 +14,12 @@ export default class StudentsData implements IStudentsData {
         return result.rows
     }
 
-    getStudent = async (client: PoolClient, id: string) => {
+    getStudent = async (client: PoolClient, id: string): Promise<Student | null> => {
         const get_student_query = `SELECT * FROM students WHERE id = $1`
         const get_students_subjects_query = `SELECT id, name, grade FROM subjects WHERE student_id = $1`
 
         const studentRes = await client.query(get_student_query, [id])
-        if (studentRes.rows.length === 0) return undefined
+        if (studentRes.rows.length === 0) return null
         
         const subjectsRes = await client.query(get_students_subjects_query, [id])
         const student = studentRes.rows[0]

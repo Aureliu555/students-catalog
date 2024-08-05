@@ -49,7 +49,7 @@ dotenv.config()
         return { name: u.name, email: u.email, birth_date: u.birth_date, access_token }
     }
 
-    generateAccessToken = (user: SimpleUser) => {
+    generateAccessToken(user: SimpleUser) {
       return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string)
     }
   }

@@ -2,9 +2,10 @@ import dotenv from "dotenv"
 import { sqlTransactionHandler } from "../data/handlers"
 import { IStudentsServices } from "../domain/interfaces/services"
 import { SimpleStudent, Student } from "../domain/types"
-import { validate, v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import StudentsData from "../data/students"
-import { InvalidIdError } from "../errors/app"
+import { validateId } from "./utils"
+import { InvalidIdError, InvalidParamsError, NotFoundError } from "../errors/app"
 dotenv.config()
   
 export class StudentsServices implements IStudentsServices {
@@ -23,16 +24,17 @@ export class StudentsServices implements IStudentsServices {
 
     getStudent = async (id: string): Promise<Student> => {
         return await sqlTransactionHandler(async (client) => {
-            if (!validate(id)) throw InvalidIdError
-            
+            validateId(id)
             const student = await this.studentsData.getStudent(client, id)
-            if (!student) throw InvalidIdError
+            if (!student) throw NotFoundError
             return student
         })
     }
 
     addStudent = async (profId: string, name: string): Promise<SimpleStudent> => {
         return await sqlTransactionHandler(async (client) => {
+            if (!name) throw InvalidParamsError
+
             const newUUID = uuidv4()
             await this.studentsData.addStudent(client, profId, newUUID, name)
             return { id: newUUID, name }
@@ -41,7 +43,7 @@ export class StudentsServices implements IStudentsServices {
 
     deleteStudent = async (id: string): Promise<void> => {
         return await sqlTransactionHandler(async (client) => {
-            if (!validate(id)) throw InvalidIdError
+            validateId(id)
             await this.studentsData.deleteStudent(client, id)
         })
     }

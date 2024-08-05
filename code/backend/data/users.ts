@@ -8,9 +8,10 @@ export default class UserData implements IUserData {
         await client.query(insert_query, [user.name, user.email, user.password, user.birth_date])
     }
 
-    getUserByEmail = async (client: PoolClient, email: string): Promise<User | undefined>  => {
+    getUserByEmail = async (client: PoolClient, email: string): Promise<User | null>  => {
         const select_query = `SELECT * FROM users WHERE email = $1`
         const result = await client.query(select_query, [email])
+        if (result.rows.length === 0) return null
         return result.rows[0]
     }
 }
