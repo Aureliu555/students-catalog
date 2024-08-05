@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react"
-import { getFullUser } from "../services/auth"
+import { getToken } from "../services/storage"
+import { getStudents } from "../services/students"
+import Loading from "../components/common/Loading"
 
 export default function Students() {
-    const  [ loading, setLoading ]  = useState(true)
+    const [students, setStudents] = useState(null)
 
     useEffect(() => {
-        setLoading(true)
-        const user = getFullUser()
-        
-        setLoading(false)
+        const token = getToken()
+        getStudents(token).then(res => {
+            setStudents(res)
+            console.log(students)
+        })
     }, [])
 
     return (
-        <div>Students</div>
+        <>
+            { !students ? <Loading /> :
+                <div>Students</div>
+            }
+        </>
     )
 }
+
