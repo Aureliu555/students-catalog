@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for students-catalog on 2024-08-06T22:16:14+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'students-catalog'
+primary_region = 'mad'
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '128gb'
+  cpu_kind = 'performance'
+  cpus = 16
