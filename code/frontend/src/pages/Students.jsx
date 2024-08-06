@@ -20,9 +20,8 @@ export default function Students() {
 
     return (
         <>
-            { !students 
-                ? <Loading />
-                : <div className="students_container"> <Table students={students} setStudents={setStudents} /> </div>
+            { !students ? <Loading /> : 
+                <div className="students_container"> <Table students={students} setStudents={setStudents} /> </div>
             }   
         </>
     )

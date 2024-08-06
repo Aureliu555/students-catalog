@@ -130,7 +130,10 @@ dist
 .pnp.*
 
 # nodemond configuration
-.nodemon.json
+nodemon.json
 
 # vscode settings
 .vscode
+
+# Dockerfile
+Dockerfile
