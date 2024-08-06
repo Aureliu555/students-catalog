@@ -1,8 +1,8 @@
 import { Outlet, Link } from "react-router-dom"
-import '../../styles/common/Navbar.css'
-import account_icon from "../../assets/icons/account_blue.png"
-import logout_icon from "../../assets/icons/logout_blue.png"
-import { logout, getFullUser } from "../../services/auth"
+import '../styles/common/Navbar.css'
+import account_icon from "../assets/icons/account_blue.png"
+import logout_icon from "../assets/icons/logout_blue.png"
+import { logout, getFullUser } from "../services/auth"
 import Loading from "./Loading"
 import { useState, useEffect } from "react"
 
@@ -64,5 +64,4 @@ function LogoutLink() {
         </div>
     )
 }
-
 

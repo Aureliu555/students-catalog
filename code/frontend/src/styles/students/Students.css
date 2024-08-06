@@ -32,11 +32,13 @@
     width: 80%;
 }
 
-.row_student_name span {
+.row_student_name a {
     font-size: 24px;
+    text-decoration: none;
+    color: black;
 }
 
-.row_student_name span:hover {
+.row_student_name a:hover {
     cursor: pointer;
     color: blue;
 }
@@ -62,8 +64,7 @@
     width: 20%;
     height: 60px;
     font-size: 16px;
-    margin-top: 30px;
-    margin-left: 30px;
+    margin: 30px auto 50px 30px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -71,4 +72,19 @@
 .add_student_button span {
     margin-left: 8px;
     font-size: 20px;
+}
+
+.modal_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 210px;
+    width: 350px;
+}
+
+.modal_form_name {
+    font-size: 24px;
+    margin: 20px 0;
+    font-weight: bold;
+
 }

@@ -1,7 +1,7 @@
 import '../styles/auth/Auth.css'
-import { Input, PasswordInput, DateInput } from '../components/auth/Inputs'
+import { Input, PasswordInput, DateInput } from '../components/Inputs'
 import { useState } from 'react'
-import Button from '../components/auth/Button'
+import { Button } from '../components/Button'
 import { Link } from 'react-router-dom'
 import { register } from '../services/auth'
 
@@ -35,11 +35,11 @@ export default function Register() {
                         <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
                     </div>
                     <div className='button_container'> 
-                        <Button text={loading ? 'Loading...' : 'Register'} onClick={ () => handleRegister(name, email, password, birthDate) } />
+                        <Button text={loading ? 'Loading...' : 'Register'} onClick={ () => handleRegister(name, email, password, birthDate) } width='75%' height='35px'/>
                     </div>
                     <div className='other_operation_text'>
                         <span>Already have an account?</span>
-                        <Link className='other_operation_link' to='/login'> Log In </Link>
+                        <Link className='other_operation_link' to='/login'> Log In </Link> 
                     </div>
                 </div> 
             </div>

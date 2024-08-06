@@ -2,8 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 75%;
-    height: 35px;
     background-color: blue;
     color: white;
     border: 1px solid 'blue';

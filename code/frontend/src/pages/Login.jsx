@@ -1,7 +1,7 @@
 import '../styles/auth/Auth.css'
-import { Input, PasswordInput } from '../components/auth/Inputs'
+import { Input, PasswordInput } from '../components/Inputs'
 import { useState } from 'react'
-import Button from '../components/auth/Button'
+import { Button } from '../components/Button'
 import { Link } from 'react-router-dom'
 import { login } from '../services/auth'
 
@@ -31,7 +31,7 @@ export default function Login() {
                         <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
                     </div>
                     <div className='button_container'> 
-                        <Button text={loading ? 'Loading...' : 'Log In'} onClick={ () => handleLogin(email, password) } />
+                        <Button text={loading ? 'Loading...' : 'Log In'} onClick={ () => handleLogin(email, password) } width='75%' height='35px' />
                     </div>
                     <div className='other_operation_text'>
                         <span>Don't have an account yet?</span>

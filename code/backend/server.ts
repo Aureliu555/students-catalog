@@ -40,7 +40,7 @@ app.post("/api/register", authApi.register)
 
 // Students Endpoints
 app.get("/api/students", authorization, studentsApi.getStudents)
-app.post("/api/student", authorization, studentsApi.addStudent)
+app.post("/api/students", authorization, studentsApi.addStudent)
 app.delete("/api/student/:id", authorization, studentsApi.deleteStudent)
 app.get("/api/student/:id", authorization, studentsApi.getStudent)
 

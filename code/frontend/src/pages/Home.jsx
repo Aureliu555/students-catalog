@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Loading from "../components/common/Loading";
+import Loading from "../components/Loading";
 import { getToken } from "../services/storage";
 import '../styles/home/Home.css'
 import { Link } from "react-router-dom";
