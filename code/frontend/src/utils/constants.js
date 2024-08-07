@@ -1,1 +1,1 @@
-export const API_URL = 'https://students-catalog.fly.dev'
+export const API_URL = 'https://students-catalog-api.fly.dev'

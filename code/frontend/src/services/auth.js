@@ -56,7 +56,7 @@ export function getFullUser() {
 }
 
 async function loginRequest(email, password) {
-    return await fetch(`${API_URL}/api/login`, {
+    return await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ async function loginRequest(email, password) {
 }
 
 async function registerRequest(name, email, birth_date, password) {
-    return await fetch(`${API_URL}/api/register`, {
+    return await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

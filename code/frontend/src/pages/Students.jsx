@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
-import { getStudents, addStudent, deleteStudent } from "../services/students"
+import { getStudents, deleteStudent } from "../services/students"
 import Loading from "../components/Loading"
 import "../styles/students/Students.css"
 import "../styles/common/Table.css"
 import "../styles/common/Modal.css"
 import "../styles/common/ModalForm.css"
 import bin_icon from "../assets/icons/bin.png"
-import { Input } from "../components/Inputs"
+import { AddStudentForm } from "../components/ModalForms"
 import { Button } from "../components/Button"
 import Modal from "../components/Modal"
 import { Link } from "react-router-dom"
@@ -65,7 +65,6 @@ function TableElements() {
 }
 
 function TableRow({ id, number, name, setStudents }) {
-
     const handleDelete = async () => {
         const success = await deleteStudent(id)
         if (success) {
@@ -79,26 +78,6 @@ function TableRow({ id, number, name, setStudents }) {
             <VerticalLine />
             <div className="row_student_name"><Link to={`/student/${id}`}>{name}</Link></div>
             <div className="row_delete_icon"> <img className="delete_icon" src={bin_icon} alt="bin_icon" onClick={handleDelete}/></div>
-        </div>
-    )
-}
-
-function AddStudentForm({setStudents, toggleModal}) {
-    const [name, setName] = useState('')
-
-    const handleSubmit = async () => {
-        const newStudent = await addStudent(name)
-        if (newStudent) {
-            toggleModal()
-            setStudents(prev => [...prev, newStudent])
-        }
-    }
-
-    return (
-        <div className="modal_form">
-            <div className="modal_form_name">Add a new student</div>
-            <Input placeholder="Student's Name" value={name} setValue={setName} />
-            <Button onClick={handleSubmit} style={{width:"200px", height:"30px"}}>Add Student</Button>
         </div>
     )
 }

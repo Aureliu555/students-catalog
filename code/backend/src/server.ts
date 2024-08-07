@@ -35,20 +35,20 @@ app.use(cors())
 app.use(express.json())
 
 // Auth Endpoints
-app.post("/api/login", authApi.login)
-app.post("/api/register", authApi.register)
+app.post("/login", authApi.login)
+app.post("/register", authApi.register)
 
 // Students Endpoints
-app.get("/api/students", authorization, studentsApi.getStudents)
-app.post("/api/students", authorization, studentsApi.addStudent)
-app.delete("/api/student/:id", authorization, studentsApi.deleteStudent)
-app.get("/api/student/:id", authorization, studentsApi.getStudent)
+app.get("/students", authorization, studentsApi.getStudents)
+app.post("/students", authorization, studentsApi.addStudent)
+app.delete("/student/:id", authorization, studentsApi.deleteStudent)
+app.get("/student/:id", authorization, studentsApi.getStudent)
 
 // Subjects Endpoints
-app.post("/api/student/:studentId/subject", authorization, subjectsApi.addSubject)
-app.delete("/api/subject/:subjectId", authorization, subjectsApi.deleteSubject)
-app.put("/api/subject/:subjectId/grade", authorization, subjectsApi.addGrade)
-app.delete("/api/subject/:subjectId/grade", authorization, subjectsApi.deleteGrade)
+app.post("/student/:studentId/subject", authorization, subjectsApi.addSubject)
+app.delete("/subject/:subjectId", authorization, subjectsApi.deleteSubject)
+app.put("/subject/:subjectId/grade", authorization, subjectsApi.addGrade)
+app.delete("/subject/:subjectId/grade", authorization, subjectsApi.deleteGrade)
 
 app.listen(serverPort, () => {
     console.log(`Server is running on port ${serverPort}`)

@@ -53,7 +53,7 @@ export async function getStudent(id) {
 }
 
 async function getStudentsRequest(token) {
-    return fetch(`${API_URL}/api/students`, {
+    return fetch(`${API_URL}/students`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ async function getStudentsRequest(token) {
 }
 
 async function addStudentRequest(token, name) {
-    return fetch(`${API_URL}/api/students`, {
+    return fetch(`${API_URL}/students`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ async function addStudentRequest(token, name) {
 }
 
 async function deleteStudentRequest(token, id) {
-    return fetch(`${API_URL}/api/student/${id}`, {
+    return fetch(`${API_URL}/student/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ async function deleteStudentRequest(token, id) {
 }
 
 async function getStudentRequest(token, id) {
-    return fetch(`${API_URL}/api/student/${id}`, {
+    return fetch(`${API_URL}/student/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

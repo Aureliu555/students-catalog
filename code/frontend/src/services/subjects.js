@@ -25,6 +25,7 @@ export async function deleteSubject(id) {
 }
 
 export async function addGrade(subject_id, grade) {
+    if (!isGradeValid(grade)) return false
     const response = await addGradeRequest(subject_id, grade) 
 
     if (!response.ok) {
@@ -47,7 +48,7 @@ export async function removeGrade(id) {
 }
 
 async function deleteSubjectRequest(id) {
-    return await fetch(`${API_URL}/api/subject/${id}`, {
+    return await fetch(`${API_URL}/subject/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +58,7 @@ async function deleteSubjectRequest(id) {
 }
 
 async function addSubjectRequest(student_id, name) {
-    return await fetch(`${API_URL}/api/student/${student_id}/subject`, {
+    return await fetch(`${API_URL}/student/${student_id}/subject`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -68,7 +69,7 @@ async function addSubjectRequest(student_id, name) {
 }
 
 async function removeGradeRequest(id) {
-    return await fetch(`${API_URL}/api/subject/${id}/grade`, {
+    return await fetch(`${API_URL}/subject/${id}/grade`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -78,12 +79,16 @@ async function removeGradeRequest(id) {
 }
 
 async function addGradeRequest(id, grade) {
-    return await fetch(`${API_URL}/api/subject/${id}/grade`, {
-        method: 'POST',
+    return await fetch(`${API_URL}/subject/${id}/grade`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${getToken()}`
         },
         body: JSON.stringify({ grade })
     })
+}
+
+function isGradeValid(grade) {
+    return Number.isInteger(Number(grade)) && grade >= 1 && grade <= 100
 }

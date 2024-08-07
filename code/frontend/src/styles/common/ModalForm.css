@@ -6,8 +6,39 @@
     width: 350px;
 }
 
+.edit_grade_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 240px;
+    width: 350px;
+}
+
 .modal_form_name {
     font-size: 24px;
     margin: 20px 0;
     font-weight: bold;
+}
+
+.edit_grade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0 30px 0;
+}
+
+.edit_grade span {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.edit_grade input {
+    width: 70px;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    font-size: 16px;
+    outline: none;
+    margin-right: 20px;
 }

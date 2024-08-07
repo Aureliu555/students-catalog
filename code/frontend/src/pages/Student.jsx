@@ -6,11 +6,10 @@ import Modal from "../components/Modal"
 import { Button } from "../components/Button"
 import "../styles/student/Student.css"
 import "../styles/common/Table.css"
-import "../styles/common/ModalForm.css"
 import { VerticalLine } from "../components/Lines"
 import bin_icon from "../assets/icons/bin.png"
-import { addSubject, deleteSubject } from "../services/subjects"
-import { Input } from "../components/Inputs"
+import { deleteSubject } from "../services/subjects"
+import { AddSubjectForm, EditGradeForm } from "../components/ModalForms"
 
 export default function Student() {
     const { id } = useParams()
@@ -31,23 +30,23 @@ export default function Student() {
 }   
 
 function Table({ subjects, setSubjects, student }) {
-    const [visible, setVisible] = useState(false)
-    const toggleModal = () => {
-        setVisible((prev) => !prev)
-    }
+    const [addSubVisible, setAddSubVisible] = useState(false)
+    const toggleAddSubModal = () => { setAddSubVisible((prev) => !prev) }
 
     return (
         <div className="table_container"> 
             <div className="table_name"> {student.name}'s Subjects</div>
             <div style={{marginBottom: "20px"}}>
                 <TableElements />
-                {subjects.map((s, idx) => 
-                    <TableRow key={s.id} id={s.id} number={idx+1} name={s.name} grade={s.grade ? s.grade : "-"} setSubjects={setSubjects} />
+                {subjects.map((s, idx) =>
+                    <TableRow 
+                        key={s.id} id={s.id} number={idx+1} name={s.name} grade={s.grade ? s.grade : "-"} setSubjects={setSubjects} 
+                    />
                 )}
             </div>  
-            <Button onClick={toggleModal} className='add_button'> Add Subject<span>+</span> </Button>
-            <Modal visible={visible} toggleModal={toggleModal}>
-                <AddSubjectForm toggleModal={toggleModal} setSubjects={setSubjects} studentId={student.id} />
+            <Button onClick={toggleAddSubModal} className='add_button'> Add Subject<span>+</span> </Button>
+            <Modal visible={addSubVisible} toggleModal={toggleAddSubModal}>
+                <AddSubjectForm toggleModal={toggleAddSubModal} setSubjects={setSubjects} studentId={student.id} />
             </Modal>	
         </div>
     )
@@ -66,6 +65,8 @@ function TableElements() {
 }
 
 function TableRow({ id, number, name, grade, setSubjects }) {
+    const [editGradeVisible, setEditGradeVisible] = useState(false)
+    const toggleEditGradeModal = () => { setEditGradeVisible((prev) => !prev) }
 
     const handleDelete = async () => {
         const success = await deleteSubject(id)
@@ -85,27 +86,10 @@ function TableRow({ id, number, name, grade, setSubjects }) {
                 </div>
             </div>
             <VerticalLine />
-            <div className="row_grade"><span>{grade}</span></div>
-        </div>
-    )
-}
-
-function AddSubjectForm({studentId, setSubjects, toggleModal}) {
-    const [name, setName] = useState('')
-
-    const handleSubmit = async () => {
-        const newSubject = await addSubject(studentId, name)
-        if (newSubject) {
-            toggleModal()
-            setSubjects(prev => [...prev, newSubject])
-        }
-    }
-
-    return (
-        <div className="modal_form">
-            <div className="modal_form_name">Add a new subject</div>
-            <Input placeholder="Subject Name" value={name} setValue={setName} />
-            <Button onClick={handleSubmit} style={{width:"200px", height:"30px"}}>Add Subject</Button>
+            <div className="row_grade"><span onClick={toggleEditGradeModal}>{grade}</span></div>
+            <Modal visible={editGradeVisible} toggleModal={toggleEditGradeModal}>
+                <EditGradeForm toggleModal={toggleEditGradeModal} setSubjects={setSubjects} subjectId={id} />
+            </Modal>
         </div>
     )
 }
