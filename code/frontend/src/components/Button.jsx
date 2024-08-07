@@ -1,9 +1,9 @@
 import '../styles/common/Button.css'
 
-export function Button({ onClick, text, width, height }) {
+export function Button({ className, style, onClick, children }) {
     return (
-        <div style={{width: width, height: height}} className='button' onClick={onClick}>
-            {text}
+        <div style={style} className={`button ${className}`} onClick={onClick}>
+            {children}
         </div>
     )
 }

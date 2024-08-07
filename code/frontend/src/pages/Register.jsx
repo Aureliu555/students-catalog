@@ -35,7 +35,9 @@ export default function Register() {
                         <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
                     </div>
                     <div className='button_container'> 
-                        <Button text={loading ? 'Loading...' : 'Register'} onClick={ () => handleRegister(name, email, password, birthDate) } width='75%' height='35px'/>
+                        <Button onClick={ () => handleRegister(name, email, password, birthDate) } style={{width:'75%', height:'35px'}}> 
+                            {loading ? 'Loading...' : 'Register'} 
+                        </Button>
                     </div>
                     <div className='other_operation_text'>
                         <span>Already have an account?</span>

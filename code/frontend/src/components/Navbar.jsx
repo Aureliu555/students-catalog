@@ -17,12 +17,7 @@ export default function Navbar() {
     }, [])
 
     return (
-        <>
-            { !fullUser 
-                ? <Loading /> 
-                : <NavbarComp user={fullUser.user} /> 
-            }
-        </>
+        !fullUser ? <Loading /> : <NavbarComp user={fullUser.user} /> 
     )
 }
 

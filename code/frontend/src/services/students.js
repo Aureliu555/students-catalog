@@ -39,6 +39,19 @@ export async function deleteStudent(id) {
     return true
 }
 
+export async function getStudent(id) {
+    const token = getToken()
+    const response = await getStudentRequest(token, id) 
+
+    if (!response.ok) {
+        window.location.href = `/error/${response.status}`
+        return
+    }
+
+    const data = await response.json()
+    return data
+}
+
 async function getStudentsRequest(token) {
     return fetch(`${API_URL}/api/students`, {
         method: 'GET',

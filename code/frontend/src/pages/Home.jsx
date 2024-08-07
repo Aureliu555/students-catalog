@@ -15,16 +15,13 @@ export default function Home() {
     }, [])
 
     return (
-        <>
-            { loading ? <Loading /> :
-                <div className="main_container">
-                    <p className="name"> Students Catalog </p>
-                    <div className="slogan_container">
-                         <p className="slogan"> Manage your students through our service </p>
-                         <Link className="get_started_button" to='/login'>Get Started</Link>
-                    </div>
+        loading ? <Loading /> :
+            <div className="main_container">
+                <p className="name"> Students Catalog </p>
+                <div className="slogan_container">
+                        <p className="slogan"> Manage your students through our service </p>
+                        <Link className="get_started_button" to='/login'>Get Started</Link>
                 </div>
-            }
-        </>
+            </div>
     )
 }

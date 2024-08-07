@@ -31,7 +31,9 @@ export default function Login() {
                         <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
                     </div>
                     <div className='button_container'> 
-                        <Button text={loading ? 'Loading...' : 'Log In'} onClick={ () => handleLogin(email, password) } width='75%' height='35px' />
+                        <Button onClick={ () => handleLogin(email, password) } style={{width:'75%', height:'35px'}}> 
+                            { loading ? 'Loading...' : 'Log In' }
+                        </Button>
                     </div>
                     <div className='other_operation_text'>
                         <span>Don't have an account yet?</span>

@@ -5,27 +5,18 @@
     justify-content: center;
 }
 
-.table_container {
-    width: 60%;
-}
-
-.table_name {
-    font-size: 30px;
-    margin-bottom:35px;
-    margin-left: 40px;
-}
-
-.table_row {
-    display: flex;
-    align-items: center;
-    border: 1px solid black;
-    height: 60px;
-}
-
 .row_number {
     width: 10%;
     text-align: center;
     font-size: 24px;
+}
+
+.row_name {
+    font-size: 24px;	
+}
+
+.row_name span {
+    margin-left: 10px;
 }
 
 .row_student_name {
@@ -33,6 +24,7 @@
 }
 
 .row_student_name a {
+    margin-left: 10px;
     font-size: 24px;
     text-decoration: none;
     color: black;
@@ -54,37 +46,15 @@
     height: 25px;
 }
 
-.add_student_button {
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: blue;
-    width: 20%;
-    height: 60px;
-    font-size: 16px;
-    margin: 30px auto 50px 30px;
+.add_button {
+    width: 220px;
+    height: 40px;
+    margin-left: 30px;
     border-radius: 10px;
-    cursor: pointer;
+    margin-bottom: 30px;
 }
 
-.add_student_button span {
+.add_button span {
     margin-left: 8px;
     font-size: 20px;
-}
-
-.modal_form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 210px;
-    width: 350px;
-}
-
-.modal_form_name {
-    font-size: 24px;
-    margin: 20px 0;
-    font-weight: bold;
-
 }
