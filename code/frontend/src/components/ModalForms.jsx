@@ -17,11 +17,11 @@ export function AddSubjectForm({studentId, setSubjects, toggleModal}) {
     }
 
     return (
-        <div className="modal_form">
+        <form className="modal_form">
             <div className="modal_form_name">Add a new subject</div>
             <Input placeholder="Subject Name" value={name} setValue={setName} />
-            <Button onClick={handleSubmit} style={{width:"200px", height:"30px"}}>Add Subject</Button>
-        </div>
+            <Button onClick={handleSubmit} style={{width:"200px", height:"50px"}}>Add Subject</Button>
+        </form>
     )
 }
 
@@ -37,11 +37,11 @@ export function AddStudentForm({setStudents, toggleModal}) {
     }
 
     return (
-        <div className="modal_form">
+        <form className="modal_form">
             <div className="modal_form_name">Add a new student</div>
             <Input placeholder="Student's Name" value={name} setValue={setName} />
-            <Button onClick={handleSubmit} style={{width:"200px", height:"30px"}}>Add Student</Button>
-        </div>
+            <Button onClick={handleSubmit} style={{width:"200px", height:"50px"}}>Add Student</Button>
+        </form>
     )
 }
 
@@ -75,14 +75,14 @@ export function EditGradeForm({toggleModal, subjectId, setSubjects}) {
     return (
         <div className="edit_grade_form">
             <div className="modal_form_name">Change Grade</div>
-            <div className="edit_grade">
+            <form className="edit_grade">
                 <span>New Grade</span>
                 <input type="number" value={grade} onChange={onChange}/>
-                <Button onClick={() => handleUpdate(subjectId, grade)} style={{width:"100px", height: "30px"}}>
+                <Button onClick={() => handleUpdate(subjectId, grade)} style={{width:"100px", height: "60px"}}>
                     {loadingUpdate ? "..." : "Update"}
                 </Button>
-            </div>
-            <Button onClick={handleDelete} style={{width:"140px", height: "35px", backgroundColor: "red"}}>
+            </form>
+            <Button onClick={handleDelete} style={{width:"150px", height: "60px", backgroundColor: "red"}}>
                 {loadingDelete ? "..." : "Delete Grade"}
             </Button>
         </div>
@@ -104,7 +104,7 @@ export function ConfirmationForm({toggleModal, action, question, highlightedText
             </div>
             <div className="confirmation_buttons_container">
                 <Button onClick={handleConfirm} className='confirm_button'> Confirm </Button>
-                <Button onClick={toggleModal} className='cancel_button' style={{width:"100px", height: "25px", backgroundColor: "gray"}}> Cancel </Button>
+                <Button onClick={toggleModal} className='cancel_button'> Cancel </Button>
             </div>
         </div>
     )

@@ -10,7 +10,7 @@ export default function Login() {
     const [ error, setError ] = useState(null)
 
     return (
-        <AuthContainer name='Log In' error={error}> 
+        <AuthContainer name='Log In' error={error} style={{height: '500px'}}> 
             <FormContainer setError={ setError } />
             <RegisterLink />
         </AuthContainer>
@@ -30,17 +30,17 @@ function FormContainer({setError}) {
     }
 
     return (
-        <>
+        <form>
             <div className='inputs_container'>
-                <Input placeholder='Email' value={ email } setValue={ setEmail } />
-                <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
+                    <Input placeholder='Email' value={ email } setValue={ setEmail } />
+                    <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
             </div>
             <div className='button_container'> 
-                <Button onClick={ () => handleLogin(email, password) } style={{width:'75%', height:'35px'}}> 
+                <Button onClick={ () => handleLogin(email, password) } style={{width:'75%', height:'50px'}}> 
                     { loading ? 'Loading...' : 'Log In' }
                 </Button>
             </div>
-        </>
+        </form>
     )
 }
 

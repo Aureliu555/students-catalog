@@ -32,7 +32,7 @@ function FormContainer({setError}) {
     }
 
     return (
-        <>
+        <form>
             <div className='inputs_container'>
                 <Input placeholder='Name' value={ name } setValue={ setName } />
                 <Input placeholder='Email' value={ email } setValue={ setEmail } />
@@ -40,11 +40,11 @@ function FormContainer({setError}) {
                 <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
             </div>
             <div className='button_container'> 
-                <Button onClick={ () => handleRegister(name, email, password, birthDate) } style={{width:'75%', height:'35px'}}> 
+                <Button onClick={ () => handleRegister(name, email, password, birthDate) } style={{width:'75%', height:'50px'}}> 
                     {loading ? 'Loading...' : 'Register'} 
                 </Button>
             </div>
-        </>
+        </form>
     )
 }
 

@@ -16,6 +16,7 @@ export function Input({ placeholder, value, setValue }) {
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                required
             />
         </div>
     )
@@ -35,6 +36,7 @@ export function PasswordInput({ placeholder, value, setValue }) {
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                required
             />
             <div className='icon_container'>
                 <img className='icon' onClick={onClick} src={visible ? visible_icon : non_visible_icon}/>
@@ -59,6 +61,7 @@ export function DateInput({ placeholder, selectedDate, setSelectedDate }) {
                 placeholder={placeholder}
                 value={selectedDate && format(selectedDate, 'dd/MM/yyy')}
                 readOnly
+                required
             />
             <div className='icon_container'>
                 <img className='icon' onClick={() => {setIsVisible((prev) => !prev)}} src={calendar_icon}/>

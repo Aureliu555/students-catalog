@@ -2,6 +2,7 @@ import { requestHandler } from "./handlers"
 import { addSubjectRequest, deleteSubjectRequest, addGradeRequest, removeGradeRequest } from "../requests/subjects"
 
 export async function addSubject(student_id, name) {
+    if (!name) return false
     return await requestHandler(() => addSubjectRequest(student_id, name), true)
 }
 

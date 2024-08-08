@@ -6,6 +6,7 @@ export async function getStudents() {
 }
 
 export async function addStudent(name) {
+    if (!name) return false
     return await requestHandler(() => addStudentRequest(name), true)
 }
 
