@@ -4,13 +4,24 @@ import { useState } from 'react'
 import { Button } from '../components/Button'
 import { Link } from 'react-router-dom'
 import { register } from '../services/auth'
+import AuthContainer from '../components/AuthContainer'
 
 export default function Register() {
+    const [ error, setError ] = useState(null)
+
+    return (
+        <AuthContainer name='Register' error={error}>
+            <FormContainer setError={ setError } />
+            <LoginLink />
+        </AuthContainer>
+    )
+}
+
+function FormContainer({setError}) {
     const [ name, setName ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ birthDate, setBirthDate ] = useState(null)
-    const [ error, setError ] = useState(null)
     const [ loading, setLoading ] = useState(false)
 
     const handleRegister = async (name, email, password, birth_date) => {
@@ -21,30 +32,27 @@ export default function Register() {
     }
 
     return (
-        <div className='main_container'>
-            <div className='auth_container'>
-                <div className='form_container'> 
-                    <p className='main_text'>Register</p>
-                    <div className='error_container'>
-                        { error && <p className='error_text'>{ error }</p> }
-                    </div>
-                    <div className='inputs_container'>
-                        <Input placeholder='Name' value={ name } setValue={ setName } />
-                        <Input placeholder='Email' value={ email } setValue={ setEmail } />
-                        <DateInput placeholder='Birth Date' selectedDate={ birthDate } setSelectedDate={ setBirthDate } />
-                        <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
-                    </div>
-                    <div className='button_container'> 
-                        <Button onClick={ () => handleRegister(name, email, password, birthDate) } style={{width:'75%', height:'35px'}}> 
-                            {loading ? 'Loading...' : 'Register'} 
-                        </Button>
-                    </div>
-                    <div className='other_operation_text'>
-                        <span>Already have an account?</span>
-                        <Link className='other_operation_link' to='/login'> Log In </Link> 
-                    </div>
-                </div> 
+        <>
+            <div className='inputs_container'>
+                <Input placeholder='Name' value={ name } setValue={ setName } />
+                <Input placeholder='Email' value={ email } setValue={ setEmail } />
+                <DateInput placeholder='Birth Date' selectedDate={ birthDate } setSelectedDate={ setBirthDate } />
+                <PasswordInput placeholder='Password' value={ password } setValue={ setPassword } />
             </div>
+            <div className='button_container'> 
+                <Button onClick={ () => handleRegister(name, email, password, birthDate) } style={{width:'75%', height:'35px'}}> 
+                    {loading ? 'Loading...' : 'Register'} 
+                </Button>
+            </div>
+        </>
+    )
+}
+
+function LoginLink() {
+    return (
+        <div className='other_operation_text'>
+            <span>Already have an account?</span>
+            <Link className='other_operation_link' to='/login'> Log In </Link>
         </div>
     )
 }

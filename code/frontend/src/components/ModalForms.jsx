@@ -88,3 +88,24 @@ export function EditGradeForm({toggleModal, subjectId, setSubjects}) {
         </div>
     )
 }
+
+export function ConfirmationForm({toggleModal, action, question, highlightedText}) {
+    const handleConfirm = () => {
+        action()
+        toggleModal()
+    }
+
+    return (
+        <div className="confirmation_form">
+            <div className="confirmation_modal_text">
+                <span>{question}</span>
+                <span style={{fontWeight: 'bolder', textDecoration: 'underline'}}>{highlightedText}</span>
+                <span>{' ?'}</span>
+            </div>
+            <div className="confirmation_buttons_container">
+                <Button onClick={handleConfirm} className='confirm_button'> Confirm </Button>
+                <Button onClick={toggleModal} className='cancel_button' style={{width:"100px", height: "25px", backgroundColor: "gray"}}> Cancel </Button>
+            </div>
+        </div>
+    )
+}

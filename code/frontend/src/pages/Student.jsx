@@ -9,7 +9,7 @@ import "../styles/common/Table.css"
 import { VerticalLine } from "../components/Lines"
 import bin_icon from "../assets/icons/bin.png"
 import { deleteSubject } from "../services/subjects"
-import { AddSubjectForm, EditGradeForm } from "../components/ModalForms"
+import { AddSubjectForm, EditGradeForm, ConfirmationForm } from "../components/ModalForms"
 
 export default function Student() {
     const { id } = useParams()
@@ -66,7 +66,9 @@ function TableElements() {
 
 function TableRow({ id, number, name, grade, setSubjects }) {
     const [editGradeVisible, setEditGradeVisible] = useState(false)
+    const [confirmationVisible, setConfirmationVisible] = useState(false)
     const toggleEditGradeModal = () => { setEditGradeVisible((prev) => !prev) }
+    const toggleConfirmationModal = () => { setConfirmationVisible((prev) => !prev) }
 
     const handleDelete = async () => {
         const success = await deleteSubject(id)
@@ -82,13 +84,21 @@ function TableRow({ id, number, name, grade, setSubjects }) {
             <div className="row_subject_name">
                 <span style={{width: "70%"}}>{name}</span>
                 <div style={{width: "100%", display: "flex", justifyContent: "end", marginRight: "20px", alignItems: "center"}}>
-                    <img className="delete_icon" src={bin_icon} alt="bin_icon" onClick={handleDelete}/>
+                    <img className="delete_icon" src={bin_icon} alt="bin_icon" onClick={toggleConfirmationModal}/>
                 </div>
             </div>
             <VerticalLine />
             <div className="row_grade"><span onClick={toggleEditGradeModal}>{grade}</span></div>
             <Modal visible={editGradeVisible} toggleModal={toggleEditGradeModal}>
                 <EditGradeForm toggleModal={toggleEditGradeModal} setSubjects={setSubjects} subjectId={id} />
+            </Modal>
+            <Modal visible={confirmationVisible} toggleModal={toggleConfirmationModal}>
+                <ConfirmationForm 
+                    toggleModal={toggleConfirmationModal} 
+                    action={handleDelete} 
+                    question={`Are you sure you want to delete `}
+                    highlightedText={name}
+                />
             </Modal>
         </div>
     )

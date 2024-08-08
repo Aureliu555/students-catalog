@@ -6,7 +6,7 @@ import "../styles/common/Table.css"
 import "../styles/common/Modal.css"
 import "../styles/common/ModalForm.css"
 import bin_icon from "../assets/icons/bin.png"
-import { AddStudentForm } from "../components/ModalForms"
+import { AddStudentForm, ConfirmationForm } from "../components/ModalForms"
 import { Button } from "../components/Button"
 import Modal from "../components/Modal"
 import { Link } from "react-router-dom"
@@ -65,6 +65,11 @@ function TableElements() {
 }
 
 function TableRow({ id, number, name, setStudents }) {
+    const [visible, setVisible] = useState(false)
+    const toggleModal = () => {
+        setVisible((prev) => !prev)
+    }
+
     const handleDelete = async () => {
         const success = await deleteStudent(id)
         if (success) {
@@ -77,7 +82,15 @@ function TableRow({ id, number, name, setStudents }) {
             <div className="row_number">{number}.</div>
             <VerticalLine />
             <div className="row_student_name"><Link to={`/student/${id}`}>{name}</Link></div>
-            <div className="row_delete_icon"> <img className="delete_icon" src={bin_icon} alt="bin_icon" onClick={handleDelete}/></div>
+            <div className="row_delete_icon"> <img className="delete_icon" src={bin_icon} alt="bin_icon" onClick={toggleModal}/></div>
+            <Modal visible={visible} toggleModal={toggleModal}>
+                <ConfirmationForm 
+                    toggleModal={toggleModal} 
+                    action={handleDelete} 
+                    question={`Are you sure you want to delete `}
+                    highlightedText={name}
+                />
+            </Modal>
         </div>
     )
 }

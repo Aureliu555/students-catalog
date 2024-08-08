@@ -5,6 +5,7 @@ import Student from './pages/Student'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Students from './pages/Students'
+import ErrorPage from './pages/ErrorPage'
 import '../src/styles/App.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route element={ <Navbar /> }>
           <Route path="/students" element={ <Students /> }></Route>
           <Route path="/student/:id" element={ <Student /> }></Route>
+          <Route path="/error/:status" element={ <ErrorPage /> }></Route>
         </Route>
         
         <Route path="/login" element={ <Login /> }></Route>
